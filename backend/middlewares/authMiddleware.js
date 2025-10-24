@@ -1,0 +1,41 @@
+import jwt from "jsonwebtoken";
+import User  from "../models/user.js";
+import asyncHandler from "./asnycHandler.js";
+
+
+// check if user is  authenticated or not
+const authenticate = asyncHandler(async(req,res,next) => {
+  let token;
+
+  // read jwt from the 'jwt' cookie
+  token = req.cookies.jwt
+  
+  if(token){
+    try{
+      const decoded = jwt.verify(token , process.env.JWT_SECRET);
+      req.user = await  User.findById(decoded.userId).select('_password');
+      next();
+    }catch(error){
+      res.status(401)
+      throw new error("Not authorized, token failed");
+    }
+  } else {
+    res.status(401);
+    throw new error("Not authorized, no token")
+  }
+
+
+
+});
+
+// check if the user is admin or not
+
+const authorizedAdmin = (req, res, next) => {
+  if(req.user && req.user.isAdmin){
+    next()
+  }else{
+    res.status(401).send("not authorized as admin");
+  }
+};
+
+export {authenticate , authorizedAdmin};
