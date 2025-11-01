@@ -50,7 +50,7 @@ const Register = () => {
       }
     }
   };
-  
+
   return (
     <div className="pl-[9rem] flex flex-wrap h-screen">
           <div className="mr-[4rem] mt-[3rem] ">
@@ -117,6 +117,11 @@ const Register = () => {
               </p>
             </div>
           </div>
+           <img
+            src="https://i.pinimg.com/736x/e9/46/3f/e9463f48d2baa965ac0aa8eaa13d2d91.jpg"
+            alt=""
+            className="h-screen w-[50%] xl:block md:hidden sm:hidden rounded-lg"
+      />
       </div>
   )
 }
