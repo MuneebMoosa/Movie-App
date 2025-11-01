@@ -120,7 +120,7 @@ const Register = () => {
            <img
             src="https://i.pinimg.com/736x/e9/46/3f/e9463f48d2baa965ac0aa8eaa13d2d91.jpg"
             alt=""
-            className="h-screen w-[50%] xl:block md:hidden sm:hidden rounded-lg"
+            className="h-[35rem] w-[50%] xl:block md:hidden sm:hidden rounded-lg mt-[3rem]"
       />
       </div>
   )

@@ -44,7 +44,7 @@ const Login = () => {
 
   return (
     <div className='h-screen'>
-        <section className="pl-[10rem] flex flex-wrap ">
+        <section className="pl-[9rem] flex flex-wrap ">
             <div className="mr-[4rem] mt-[5rem]">
                <h1 className="text-2xl font-semibold mb-4">Sign In</h1>
 
@@ -98,12 +98,7 @@ const Login = () => {
                </div>
             </div>
 
-            {/* <img
-              src="https://i.pinimg.com/736x/6e/35/54/6e3554bc2c42702a0d85bb5f453923d8.jpg"
-              alt=""
-              className="h-[35rem] w-[40%] xl:block md:hidden sm:hidden rounded-lg mt-[3.5rem]
-               filter: brightness-70 contrast-130" /> */}
-               <div className="relative h-[35rem] w-[40%]  xl:block md:hidden sm:hidden mt-[3.5rem] rounded-lg overflow-hidden">
+               <div className="relative h-[35rem] w-[50%]  xl:block md:hidden sm:hidden mt-[3rem] rounded-lg overflow-hidden">
                     <img
                       src="https://i.pinimg.com/736x/6e/35/54/6e3554bc2c42702a0d85bb5f453923d8.jpg"
                       alt="Background"
