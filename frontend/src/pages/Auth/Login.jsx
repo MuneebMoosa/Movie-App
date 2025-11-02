@@ -1,7 +1,7 @@
 import { useState , useEffect } from 'react'
 import { Link, useLocation , useNavigate  } from 'react-router-dom'
 import { useDispatch , useSelector } from 'react-redux'
-import loader from '../../comonents/loader'
+import Loader from '../../comonents/Loader'
 import { setCredentials } from '../../redux/features/auth/authSlice'
 import { toast } from 'react-toastify'
 import { useLoginMutation } from '../../redux/api/users.js'
@@ -83,7 +83,7 @@ const Login = () => {
                      >
                         {isLoading ? 'Signing In ...' : 'Sign In'}
                     </button>
-                    {isLoading && <loader />}
+                    {isLoading && <Loader />}
                </form>
                 <div className="mt-4">
                   <p className="text-white">

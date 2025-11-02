@@ -1,7 +1,7 @@
 import { useState , useEffect } from 'react'
 import { Link, useLocation , useNavigate  } from 'react-router-dom'
 import { useDispatch , useSelector } from 'react-redux'
-import loader from '../../comonents/loader'
+import Loader from '../../comonents/Loader.jsx'
 import { setCredentials } from '../../redux/features/auth/authSlice'
 import { toast } from 'react-toastify'
 import { useRegisterMutation } from '../../redux/api/users.js'
@@ -103,7 +103,7 @@ const Register = () => {
                         {isloading ? "registering" : "register"}
                     </button>
 
-                    {isloading && <loader/>}
+                    {isloading && <Loader/>}
              </form>
               <div className="mt-4">
               <p className="text-white">

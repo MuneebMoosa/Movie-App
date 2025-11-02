@@ -35,7 +35,7 @@ const Navigation = () => {
     }
 
   return (
-    <div className='fixed bottom-10 left-[30rem] transform translate-x-1/2 translate-y-1/2 z-50 bg-[#0f0f0f] border w-[30%] px-[4rem] mb-[2rem] rounded'>
+    <div className='fixed bottom-11 left-[44rem] transform translate-x-1/2 translate-y-1/2 z-50 bg-[#0f0f0f] border w-[30%] px-[4rem] mb-[2rem] rounded'>
       <section className='flex justify-between items-center'>
           {/* section 1 */}
           <div className="flex justify-center items-center mb-[2rem]">
