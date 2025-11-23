@@ -1,6 +1,6 @@
 import express from "express";
 
-// controllers
+// controller s
 import { 
   createUser , 
   loginUser , 
