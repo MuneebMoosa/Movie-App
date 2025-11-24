@@ -15,7 +15,7 @@ connectDB()
 
 const app = express()
 
-// middlewares
+// middlewares 
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

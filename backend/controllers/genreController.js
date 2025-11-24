@@ -1,5 +1,6 @@
 import Genre from '../models/genre.js'
 import asyncHandler from '../middlewares/asnycHandler.js'
+import { error } from 'console';
 
 const createGenre = asyncHandler(async (req, res) => {
     try{
@@ -44,4 +45,42 @@ const updateGenre = asyncHandler(async (req, res) => {
    }
 })
 
-export {createGenre , updateGenre};
+const removeGenre = asyncHandler(async (req , res)=> {
+  try{
+      const {id} = req.params;
+      const removed = await Genre.findByIdAndDelete(id)
+
+      if(!removed){
+        return res.status(404).json({error: "Genre not found"})
+      }
+
+      res.json(removed);  
+
+  }catch(error){
+      console.log(error);
+      return res.status(500).json({error : "Interval server error"});
+   }
+})
+
+const listGenre = asyncHandler(async (req , res)=> {
+    try{
+        const all = await Genre.find({});
+        res.json(all)
+    }catch(error){
+      console.log(error);
+      return res.status(400).json(error.message)
+    }
+})
+
+const readGenre = asyncHandler(async (req , res)=> {
+  try{
+  
+  const genre = await Genre.findOne({_id: req.params.id})
+  res.json(genre);
+  
+  }catch(error){
+    console.log(error)
+    return res.status(400).json(error.message)
+  }
+})
+export {createGenre , updateGenre , removeGenre, listGenre, readGenre};
