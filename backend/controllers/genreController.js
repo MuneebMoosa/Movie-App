@@ -1,6 +1,5 @@
 import Genre from '../models/genre.js'
 import asyncHandler from '../middlewares/asnycHandler.js'
-import { error } from 'console';
 
 const createGenre = asyncHandler(async (req, res) => {
     try{
