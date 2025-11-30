@@ -56,6 +56,11 @@ const moviSchema = new mongoose.Schema(
       required: true,
       default: 0
     },
+    rating: {
+      type: Number,
+      required: true,
+      default: 0
+    },
     createdAt:{
       type: Date,
       default: Date.now
