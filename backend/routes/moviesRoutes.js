@@ -11,17 +11,26 @@ import {
   updateMovie,
   movieReview,
   deleteMovie,
-  deleteComment
+  deleteComment,
+  getNewMovies,
+  getTopMovies,
+  getRandomMovies
 } from '../controllers/movieController.js'
 // middlewares
 import { authenticate, authorizedAdmin} from "../middlewares/authMiddleware.js"
 import checkId from "../middlewares/checkId.js";
+import { get } from "mongoose";
 
 // public Routes
 router.get('/all-movies', getAllmovies)
 router.get('/specific-movie/:id', getSpecificMovie)
+router.get('/new-movies', getNewMovies)
+router.get('/top-movies', getTopMovies);
+router.get('/random-movies', getRandomMovies)
+
 // Restricted Routes
 router.post('/:id/reviews', authenticate, checkId, movieReview)
+
 // Admin
 router.post('/create-movie', authenticate, authorizedAdmin, createMovie)
 router.put('/update-movie/:id', authenticate, authorizedAdmin, updateMovie)
