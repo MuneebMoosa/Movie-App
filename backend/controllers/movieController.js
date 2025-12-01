@@ -58,7 +58,7 @@ const movieReview = async(req , res) => {
 
         if(alreadyReviewed){
           res.status(400)
-          throw new Error("Movie already reviewed")
+          throw new Error("you already reviewed")
         }
 
         const review = {
@@ -100,9 +100,41 @@ const deleteMovie = async(req, res) => {
       res.status(500).json({error: error.message})
     }
 }
+
+const  deleteComment = async(req , res) => {
+  try {
+    const {movieId , reviewId} = req.body;
+    const movie = await Movie.findById(movieId)
+
+    if(!movie){
+      res.status(404).json({message: "Movie not found"});  
+    }
+
+    const reviewIndex = movie.reviews.findIndex(
+      (r) => r._id.toString() === reviewId)
+
+    if(reviewIndex === -1){
+      return res.status(404).json({messege: "Comment not found"})
+    }
+
+    movie.reviews.splice(reviewIndex, 1)
+    movie.numReviews = movie.reviews.length
+    movie.rating = 
+    movie.reviews.length > 0 
+    ? movie.reviews.reduce((acc, item) => item.rating + acc, 0) /
+        movie.reviews.length : 0;
+
+  await movie.save()
+  res.json({messege: "Comment deleted succesfully"})
+  } catch (error) {
+      console.error(error)
+      res.status(500).json({error: error.message});
+  }
+}
 export {createMovie,
    getAllmovies, 
    getSpecificMovie, 
    updateMovie,
    movieReview,
-   deleteMovie};
+   deleteMovie,
+   deleteComment};

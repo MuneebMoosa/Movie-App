@@ -10,7 +10,8 @@ import {
   getSpecificMovie,
   updateMovie,
   movieReview,
-  deleteMovie
+  deleteMovie,
+  deleteComment
 } from '../controllers/movieController.js'
 // middlewares
 import { authenticate, authorizedAdmin} from "../middlewares/authMiddleware.js"
@@ -25,4 +26,5 @@ router.post('/:id/reviews', authenticate, checkId, movieReview)
 router.post('/create-movie', authenticate, authorizedAdmin, createMovie)
 router.put('/update-movie/:id', authenticate, authorizedAdmin, updateMovie)
 router.delete('/delete-movie/:id', authenticate, authorizedAdmin, deleteMovie)
+router.delete('/delete-comment', authenticate,authorizedAdmin, deleteComment)
 export default router;
