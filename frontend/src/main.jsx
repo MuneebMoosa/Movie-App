@@ -9,7 +9,7 @@ import { createBrowserRouter } from 'react-router-dom'
 // auth
 import AdminRoute from './pages/Admin/AdminRoute.jsx'
 import GenreList from './pages/Admin/GenreList.jsx'
-
+import CreateMovie from './pages/Admin/CreateMovie.jsx'
 
 // restricted user
 import Login from './pages/Auth/Login.jsx'
@@ -18,6 +18,7 @@ import Register from './pages/Auth/Register.jsx'
 import Home from './pages/User/Home.jsx';
 import PrivateRoute from './pages/Auth/PrivateRoute.jsx'
 import Profile from './pages/User/Profile.jsx'
+
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -31,7 +32,8 @@ const router = createBrowserRouter(
             </Route>
 
             <Route path='' element={<AdminRoute/>}>
-                <Route path='/admin/movies/genre' element={<GenreList/>}/>
+                <Route path='/admin/movies/genres' element={<GenreList/>}/>
+                <Route path='/admin/movies/create' element={<CreateMovie/>}/>
             </Route>
         </Route>
     )
