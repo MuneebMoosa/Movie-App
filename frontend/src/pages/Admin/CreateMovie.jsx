@@ -1,4 +1,3 @@
-import React from 'react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useCreateMovieMutation , useUploadImageMutation} from '../../redux/api/movie'
@@ -21,9 +20,9 @@ const [movieData, setMovieData] = useState({
     genre: ''
 })
 
-const [selectedImage , setSelecetedImage] = useState(null)
+const [selectedImage , setSelectedImage] = useState(null)
 
-const [createMovie , { isLoading: isCreatingMovie , error: createMovieErrorDetails }] =
+const [createMovie , { isLoading: isCreatingMovie , error: createMovieErrorDetail }] =
 useCreateMovieMutation()
 
 const [uploadImage, { isLoading: isUploadingImage , error: uploadImageErrorDetails }] = 
@@ -34,10 +33,88 @@ const { data: genres, isLoading: isLoadingGenres} = useFetchGenreQuery()
 useEffect(() => {
   if(genres){
     setMovieData((prevData) => ({
-      ...prevData, genre: genres[0]?.id || "",
+      ...prevData, genre: genres[0]?._id || "",
     }))
   }
 }, [genres])
+
+ const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "genre") {
+      const selectedGenre = genres.find((genre) => genre.name === value);
+
+      setMovieData((prevData) => ({
+        ...prevData,
+        genre: selectedGenre ? selectedGenre._id : "",
+      }));
+    } else {
+      setMovieData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+
+   const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(file);
+  };
+
+  const handleCreateMovie = async () => {
+    try {
+      if (
+        !movieData.name ||
+        !movieData.year ||
+        !movieData.detail ||
+        !movieData.cast ||
+        !selectedImage
+      ) {
+        toast.error("Please fill all required fields");
+        return;
+      }
+
+      let uploadedImagePath = null;
+
+      if (selectedImage) {
+        const formData = new FormData();
+        formData.append("image", selectedImage);
+
+        const uploadImageResponse = await uploadImage(formData);
+
+        if (uploadImageResponse.data) {
+          uploadedImagePath = uploadImageResponse.data.image;
+        } else {
+          console.error("Failed to upload image: ", uploadImageErrorDetails);
+          toast.error("Failed to upload image");
+          return;
+        }
+
+        await createMovie({
+          ...movieData,
+          image: uploadedImagePath,
+        });
+
+        navigate("/admin/movies-list");
+
+        setMovieData({
+          name: '',
+          year: 0,
+          detail: '',
+          cast: [],
+          rating: 0,
+          image: null,
+          genre: ''
+        });
+
+        toast.success("Movie Added To Database");
+      }
+    } catch (error) {
+      console.error("Failed to create movie: ", createMovieErrorDetail);
+      toast.error(`Failed to create movie: ${createMovieErrorDetail?.message}`);
+    }
+  };
+
   return (
       <div className="container flex justify-center items-center mt-4">
       <form>
@@ -49,7 +126,7 @@ useEffect(() => {
               type="text"
               name="name"
               value={movieData.name}
-              // onChange={handleChange}
+              onChange={handleChange}
               className="border px-2 py-1 w-full"
             />
           </label>
@@ -61,7 +138,7 @@ useEffect(() => {
               type="number"
               name="year"
               value={movieData.year}
-              // onChange={handleChange}
+              onChange={handleChange}
               className="border px-2 py-1 w-full"
             />
           </label>
@@ -72,7 +149,7 @@ useEffect(() => {
             <textarea
               name="detail"
               value={movieData.detail}
-              // onChange={handleChange}
+              onChange={handleChange}
               className="border px-2 py-1 w-full"
             ></textarea>
           </label>
@@ -97,14 +174,14 @@ useEffect(() => {
             <select
               name="genre"
               value={movieData.genre}
-              // onChange={handleChange}
+              onChange={handleChange}
               className="border px-2 py-1 w-full"
             >
               {isLoadingGenres ? (
                 <option>Loading genres...</option>
               ) : (
                 genres.map((genre) => (
-                  <option key={genre.id} value={genre.id}>
+                  <option key={genre._id} value={genre._id}>
                     {genre.name}
                   </option>
                 ))
@@ -133,7 +210,7 @@ useEffect(() => {
             <input
               type="file"
               accept="image/*"
-              // onChange={handleImageChange}
+              onChange={handleImageChange}
               style={{ display: !selectedImage ? "none" : "block" }}
             />
           </label>
@@ -141,7 +218,7 @@ useEffect(() => {
 
         <button
           type="button"
-          // onClick={handleCreateMovie}
+          onClick={handleCreateMovie}
           className="bg-teal-500 text-white px-4 py-2 rounded"
           disabled={isCreatingMovie || isUploadingImage}
         >

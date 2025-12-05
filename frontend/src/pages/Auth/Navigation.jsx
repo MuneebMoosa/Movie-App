@@ -6,7 +6,7 @@ import {
   AiOutlineUserAdd
 } from 'react-icons/ai'
 import { MdOutlineLocalMovies } from "react-icons/md"
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useSelector , useDispatch} from 'react-redux'
 import { useLogoutMutation } from '../../redux/api/users'
@@ -83,7 +83,7 @@ const Navigation = () => {
               </button>
                {dropdownOpen && userInfo && (
                 <ul
-                  className={`absolute right-0 mt-2 mr-14 w-[10rem] space-y-2 bg-white text-gray-600 ${
+                  className={`absolute right-0 mt-2 mr-14 w-[10rem] space-y-2   bg-teal-500 text-white ${
                     !userInfo.isAdmin ? "-top-20" : "-top-24"
                   }`}
                 >
@@ -92,7 +92,7 @@ const Navigation = () => {
                       <li>
                         <Link
                           to="/admin/movies/dashboard"
-                          className="block px-4 py-2 hover:bg-gray-100"
+                          className="block px-4 py-2  hover:bg-teal-300"
                         >
                           Dashboard
                         </Link>
@@ -103,7 +103,7 @@ const Navigation = () => {
                   <li>
                     <Link
                       to="/profile"
-                      className="block px-4 py-2 hover:bg-gray-100"
+                      className="block px-4 py-2 hover:bg-teal-300"
                     >
                       Profile
                     </Link>
@@ -112,7 +112,7 @@ const Navigation = () => {
                   <li>
                     <button
                       onClick={logoutHandler}
-                      className="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                      className="block w-full px-4 py-2 text-left  hover:bg-teal-300"
                     >
                       Logout
                     </button>
