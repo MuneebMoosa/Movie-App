@@ -53,7 +53,6 @@ const moviSchema = new mongoose.Schema(
     reviews: [reviewSchema],
     numReviews:{
       type: Number,
-      required: true,
       default: 0
     },
     // rating: {
