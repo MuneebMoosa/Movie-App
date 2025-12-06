@@ -98,7 +98,7 @@ const CreateMovie = () => {
           image: uploadedImagePath,
         });
 
-        navigate("/admin/movies/genres");
+        navigate("/admin/movie-list");
 
         setMovieData({
           name: "",
@@ -232,4 +232,3 @@ const CreateMovie = () => {
   );
 };
 export default CreateMovie;
-
