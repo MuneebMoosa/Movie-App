@@ -19,7 +19,6 @@ import {
 // middlewares
 import { authenticate, authorizedAdmin} from "../middlewares/authMiddleware.js"
 import checkId from "../middlewares/checkId.js";
-import { get } from "mongoose";
 
 // public Routes
 router.get('/all-movies', getAllmovies)

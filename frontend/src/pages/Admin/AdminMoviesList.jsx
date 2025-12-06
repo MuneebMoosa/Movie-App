@@ -39,12 +39,17 @@ const AdminMoviesList = () => {
                     <p className="text-gray-300 text-sm mt-3">{movie.detail}</p>
 
                     <div className="mt-[1.5rem] mb-[1rem]">
-                      <Link
+                      {/* <Link
                         to={`/admin/movies/update/${movie._id}`}
                         className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-1 px-3 rounded"
                       >
                         Update Movie
-                      </Link>
+                      </Link> */}
+                        <button
+                        className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-1 px-3 rounded"
+                      >
+                        Update Movie
+                      </button>
                     </div>
                   </div>
                 </div>

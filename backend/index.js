@@ -34,7 +34,7 @@ app.use('/api/v1/upload', uploadRoutes);
 
 
 const _dirname = path.resolve()
-app.use('uploads', express.static(path.join(_dirname + "/uploads")));
+app.use('/uploads', express.static(path.join(_dirname + "/uploads")));
 
 app.listen(PORT , () => {
   console.log(`server is listening on port ${PORT}`);
