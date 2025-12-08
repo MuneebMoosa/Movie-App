@@ -8,14 +8,14 @@ const AdminMoviesList = () => {
 
 
   return (
-      <div className="container mx-[6.5rem]">
+      <div className="container mx-[2rem]">
       <div className="flex flex-col md:flex-row">
         <div className="p-3">
           <div className="ml-[2rem] text-xl font-bold h-12">
             All Movies ({movies?.length})
           </div>
 
-          <div className="flex flex-wrap justify-around items-center p-[2rem]">
+          <div className="flex flex-wrap justify-around items-center p-[1rem]">
             {movies?.map((movie) => (
               <Link
                 key={movie._id}
@@ -39,12 +39,6 @@ const AdminMoviesList = () => {
                     <p className="text-gray-300 text-sm mt-3">{movie.detail}</p>
 
                     <div className="mt-[1.5rem] mb-[1rem]">
-                      {/* <Link
-                        to={`/admin/movies/update/${movie._id}`}
-                        className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-1 px-3 rounded"
-                      >
-                        Update Movie
-                      </Link> */}
                         <button
                         className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-1 px-3 rounded"
                       >

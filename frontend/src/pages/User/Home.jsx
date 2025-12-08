@@ -1,8 +1,15 @@
-import React from 'react'
+import Header from "../Movies/Header"
+import MoviesContainerPage from "../Movies/MoviesContainerPage"
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div className="mr-[5rem]">
+      <Header/>
+
+      <section className="mt-[3rem]">
+            <MoviesContainerPage/>
+      </section>
+    </div>
   )
 }
 
