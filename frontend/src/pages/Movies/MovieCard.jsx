@@ -2,12 +2,12 @@ import { Link } from "react-router"
 
 const MovieCard = ({movie}) => {
   return (
-    <div key={movie._id} className="relative group mx-[2rem]">
+    <div key={movie._id} className="relative group mx-[2rem] my-[10px]">
       <Link to={`/movies/${movie._id}`}>
         <img
           src={movie.image}
           alt={movie.name}
-          className="w-[20rem] h-[18rem] rounded m-0 p-0 transition duration-300 ease-in-out transform group-hover:opacity-50"
+          className="w-[15rem] h-[18rem] rounded m-0 p-0 transition duration-300 ease-in-out transform group-hover:opacity-50"
         />
       </Link>
 
