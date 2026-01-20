@@ -20,6 +20,7 @@ const AllMovies = () => {
   const {data} = useGetAllMoviesQuery()
   const {data: genres} = useFetchGenreQuery()
   const {data: newMovies} = useGetNewMoviesQuery()
+  const {data: topMovies} = useGetTopMoviesQuery()
   const {data: randomMovies} = useGetRandomMoviesQuery()
 
   const { moviesFilter, filteredMovies } = useSelector((state) => state.movies);
@@ -76,7 +77,7 @@ const AllMovies = () => {
       <>
         <section>
           <div
-            className="relative h-[40rem]  w-screen mb-10 flex items-center justify-center bg-cover"
+            className="relative h-[50rem]  w-screen mb-10 flex items-center justify-center bg-cover"
             style={{ backgroundImage: `url(${banner})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-b from-gray-800 to-black opacity-60"></div>
