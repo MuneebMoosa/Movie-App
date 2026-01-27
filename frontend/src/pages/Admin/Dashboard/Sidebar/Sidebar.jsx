@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 const Sidebar = () => {
   return (
-      <div className="-translate-y-10 flex h-screen fixed mt-10 border-r-2 border-[#242424]">
+      <div className="-translate-y-10 flex h-screen fixed mt-10 border-r-4 border-[#242424]">
       <aside className="text-white w-64 flex-shrink-0">
         <ul className="py-4">
           <li className="text-lg  bg-gradient-to-b from-teal-500 to-blue-400 rounded-full -translate-x-6">
@@ -19,12 +19,12 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="text-lg -translate-x-6 hover:bg-gradient-to-b from-teal-500 to-blue-400 rounded-full">
-            <Link to="/admin/movies/genre" className="block p-2 ml-20 mb-10">
+            <Link to="/admin/movies/genres" className="block p-2 ml-20 mb-10">
               Create Genre
             </Link>
           </li>
           <li className="text-lg -translate-x-6 hover:bg-gradient-to-b from-teal-500 to-blue-400 rounded-full">
-            <Link to="/admin/movies-list" className="block p-2 ml-20 mb-10">
+            <Link to="/admin/movie-list" className="block p-2 ml-20 mb-10">
               Update Movie
             </Link>
           </li>
