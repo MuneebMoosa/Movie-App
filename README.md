@@ -60,9 +60,11 @@ The app supports **Admin and Normal Users**, enabling movie CRUD operations, use
 
 ---
 
-### Environment Variables
-Create a `.env` file in the backend directory:
-```env
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-PORT=5000
+npm install
+npm run frontend    # Run frontend only
+npm run backend     # Run backend only
+npm run fullstack   # Run frontend + backend
+
+## 📄 License
+
+This project is licensed under the MIT License.
