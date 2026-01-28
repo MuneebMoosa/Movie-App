@@ -59,11 +59,13 @@ The app supports **Admin and Normal Users**, enabling movie CRUD operations, use
 - Git
 
 ---
+### Install Dependencies
+-npm install
 
-npm install
-npm run frontend    # Run frontend only
-npm run backend     # Run backend only
-npm run fullstack   # Run frontend + backend
+### Run the Application
+-npm run frontend    # Run frontend only
+-npm run backend     # Run backend only
+-npm run fullstack   # Run frontend + backend
 
 ## 📄 License
 
