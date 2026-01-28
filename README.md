@@ -1,71 +1,68 @@
-#🎬 Movie App – MERN Stack (CRUD)
+# 🎬 Movie App – MERN Stack (CRUD)
 
-A full-stack Movie Management Application built using the MERN stack.
-The app supports Admin and Normal Users, allowing movie CRUD operations, user interaction through comments, and an admin dashboard with analytics.
+A full-stack **Movie Management Application** built using the **MERN stack**.  
+The app supports **Admin and Normal Users**, enabling movie CRUD operations, user interaction through comments, and an admin dashboard with analytics.
 
-👥 User Roles
-Admin
+---
 
-Create, update, and delete movies
+## 👥 User Roles
 
-Manage genres
+### Admin
+- Create, update, and delete movies
+- Manage genres
+- View users and comments
+- Access dashboard analytics
 
-View users and comments
+### User
+- Register and log in
+- View movies and movie details
+- Add comments/reviews
 
-Access dashboard analytics
+---
 
-User
+## 🚀 Features
+- Authentication & authorization (JWT)
+- Role-based access control
+- Movie CRUD operations
+- Genre management
+- Comments & reviews
+- Admin dashboard with statistics
+- Responsive UI with Tailwind CSS
 
-Register and log in
+---
 
-View movies and details
+## 🛠 Tech Stack
 
-Add comments/reviews
+### Frontend
+- React
+- Tailwind CSS
+- Redux Toolkit
+- RTK Query
 
-🚀 Features
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
 
-Authentication & authorization (JWT)
+### Authentication
+- JWT
+- bcrypt
 
-Role-based access control
+---
 
-Movie CRUD operations
+## 📁 Setup & Installation
 
-Genre management
+### Prerequisites
+- Node.js
+- MongoDB
+- Git
 
-Comments & reviews
+---
 
-Admin dashboard with statistics
-
-Responsive UI with Tailwind CSS
-
-🛠 Tech Stack
-
-Frontend: React, Tailwind CSS, Redux Toolkit, RTK Query
-Backend: Node.js, Express.js, MongoDB, Mongoose
-Auth: JWT, bcrypt
-
-📁 Setup & Installation
-Prerequisites
-
-Node.js
-
-MongoDB
-
-Git
-
-Backend Setup
-cd backend
-npm install
-npm run dev
-
-
-Create .env file:
-
+### Environment Variables
+Create a `.env` file in the backend directory:
+```env
 MONGO_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 PORT=5000
-
-Frontend Setup
-cd frontend
-npm install
-npm run dev
