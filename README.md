@@ -60,12 +60,12 @@ The app supports **Admin and Normal Users**, enabling movie CRUD operations, use
 
 ---
 ### Install Dependencies
--npm install
+- npm install
 
 ### Run the Application
--npm run frontend    # Run frontend only
--npm run backend     # Run backend only
--npm run fullstack   # Run frontend + backend
+- npm run frontend    
+- npm run backend     
+- npm run fullstack   
 
 ## 📄 License
 
