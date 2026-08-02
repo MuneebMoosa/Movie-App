@@ -73,7 +73,7 @@ const GenreList = () => {
     }
   };
 
- const handleDeleteGenre = async (e) => {
+ const handleDeleteGenre = async () => {
     try {
       const result = await deleteGenre(selectedGenre._id).unwrap();
 

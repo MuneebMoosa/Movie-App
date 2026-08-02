@@ -121,4 +121,10 @@ const updateCurrentUserProfile = asyncHandler(async(req, res) => {
     throw new error("User not found");
   }
 })
-export {createUser , loginUser , logoutCurrentUser , getAllusers, getCurrentUserProfile, updateCurrentUserProfile};
+export {
+  createUser , 
+  loginUser , 
+  logoutCurrentUser , 
+  getAllusers , 
+  getCurrentUserProfile , 
+  updateCurrentUserProfile};

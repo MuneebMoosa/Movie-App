@@ -5,20 +5,19 @@ import {
   useGetRandomMoviesQuery
 } from "../../redux/api/movie"
 
-import {useFetchGenreQuery} from '../../redux/api/genre';
+import { useFetchGenreQuery } from '../../redux/api/genre';
 import SliderUtil from '../../comonents/SliderUtil'
 
 const MoviesContainerPage = () => {
-  const {data} = useGetNewMoviesQuery()
-  const {data: topMovies} = useGetTopMoviesQuery()
-  const {data: genres} = useFetchGenreQuery()
-  const {data: randomMovies} = useGetRandomMoviesQuery()
+  const { data } = useGetNewMoviesQuery()
+  const { data: topMovies } = useGetTopMoviesQuery()
+  const { data: genres } = useFetchGenreQuery()
+  const { data: randomMovies } = useGetRandomMoviesQuery()
 
-
-  const [selectedGenre , setSelectedGenre] = useState(null);
+  const [selectedGenre, setSelectedGenre] = useState(null);
 
   const handleGenreClick = (genreId) => {
-    setSelectedGenre(genreId);
+    setSelectedGenre(genreId === selectedGenre ? null : genreId);
   };
 
   const filteredMovies = data?.filter(
@@ -26,39 +25,71 @@ const MoviesContainerPage = () => {
   );
 
   return (
-    <div className="flex flex-col lg:flex-row lg:justify-between items-center ml-[5rem]">
-      <nav className="  mb-[3rem] flex flex-row xl:flex-col lg:flex-col md:flex-row sm:flex-row">
-        {genres?.map((g) => (
-          <button
-            key={g._id}
-            className={`transition duration-300 ease-in-out  hover:bg-teal-200 block p-2 rounded mb-[1rem] text-lg ${
-              selectedGenre === g._id ? "bg-teal-200" : ""
-            }`}
-            onClick={() => handleGenreClick(g._id)}
-          >
-            {g.name}
-          </button>
-        ))}
-      </nav>
+    <div className="w-full space-y-10">
+      {/* Chosen For You Carousel */}
+      <div className="w-full">
+        <h2 className="text-xl sm:text-2xl font-bold text-text-primary mb-4 tracking-tight">
+          Chosen For You
+        </h2>
+        <SliderUtil data={randomMovies} />
+      </div>
 
-      <section className="flex flex-col justify-center items-center w-full md:w-[83%] ">
-        <div className="w-full  mb-7 ">
-          <h1 className="mb-5">Choose For You</h1>
-          <SliderUtil data={randomMovies} />
+      {/* Top Movies Carousel */}
+      <div className="w-full">
+        <h2 className="text-xl sm:text-2xl font-bold text-text-primary mb-4 tracking-tight">
+          Top Movies
+        </h2>
+        <SliderUtil data={topMovies} />
+      </div>
+
+      {/* Genre Filter Card & Choose Movie Section */}
+      <div className="w-full space-y-6 pt-4 border-t border-border/40">
+        {/* Horizontal Genre Filter Card */}
+        <div className="w-full bg-surface/90 backdrop-blur-md border border-border p-4 sm:p-5 rounded-2xl shadow-xl space-y-3">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xs sm:text-sm font-semibold text-text-secondary uppercase tracking-wider">
+              Filter by Genre
+            </h3>
+          </div>
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none flex-wrap">
+            <button
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                selectedGenre === null
+                  ? "bg-primary text-white shadow-md shadow-primary/20"
+                  : "bg-surface-light hover:bg-border text-text-secondary hover:text-text-primary border border-border/60"
+              }`}
+              onClick={() => setSelectedGenre(null)}
+            >
+              All Genres
+            </button>
+            {genres?.map((g) => (
+              <button
+                key={g._id}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                  selectedGenre === g._id
+                    ? "bg-primary text-white shadow-md shadow-primary/20"
+                    : "bg-surface-light hover:bg-border text-text-secondary hover:text-text-primary border border-border/60"
+                }`}
+                onClick={() => handleGenreClick(g._id)}
+              >
+                {g.name}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="w-full  mb-7">
-          <h1 className="mb-5">Top Movies</h1>
-          <SliderUtil data={topMovies} />
-        </div>
-
-        <div className="w-full  mb-7">
-          <h1 className="mb-5">Choose Movie</h1>
+        {/* Choose Movie Carousel */}
+        <div className="w-full">
+          <h2 className="text-xl sm:text-2xl font-bold text-text-primary mb-4 tracking-tight">
+            {selectedGenre ? "Genre Movies" : "Choose Movie"}
+          </h2>
           <SliderUtil data={filteredMovies} />
         </div>
-      </section>
+      </div>
     </div>
   )
+
 }
 
 export default MoviesContainerPage
+

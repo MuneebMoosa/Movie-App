@@ -1,34 +1,31 @@
-import { useState , useEffect } from 'react'
-import { Link, useLocation , useNavigate  } from 'react-router-dom'
-import { useDispatch , useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../comonents/Loader'
 import { setCredentials } from '../../redux/features/auth/authSlice'
 import { toast } from 'react-toastify'
 import { useLoginMutation } from '../../redux/api/users.js'
 
-
-
 const Login = () => {
-
-  const [email , setEmail] = useState('');
-  const [password , setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [login, {isLoading}] = useLoginMutation()
+  const [login, { isLoading }] = useLoginMutation()
 
-  const {userInfo} = useSelector((state) => state.auth)
+  const { userInfo } = useSelector((state) => state.auth)
 
-  const {search} = useLocation()
+  const { search } = useLocation()
   const sp = new URLSearchParams(search);
   const redirect = sp.get('redirect') || '/'
-  
+
   useEffect(() => {
-    if(userInfo){
+    if (userInfo) {
       navigate(redirect);
     }
-  }, [navigate , redirect , userInfo])
+  }, [navigate, redirect, userInfo])
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -43,72 +40,91 @@ const Login = () => {
   };
 
   return (
-    <div className='h-screen'>
-        <section className="pl-[9rem] flex flex-wrap ">
-            <div className="mr-[4rem] mt-[5rem]">
-               <h1 className="text-2xl font-semibold mb-4">Sign In</h1>
+    <div className="w-full max-w-5xl mx-auto py-8 sm:py-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-surface/80 border border-border p-6 sm:p-10 rounded-3xl shadow-2xl backdrop-blur-md">
+        {/* Form Container */}
+        <div className="w-full space-y-6">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight">
+              Welcome Back
+            </h1>
+            <p className="text-text-secondary text-sm mt-1">
+              Sign in to your account to continue browsing movies.
+            </p>
+          </div>
 
-               <form onSubmit={submitHandler} className='container w-[32rem]'>
-                    <div className='my-[2-rem]'>
-                      <label htmlFor="email"className="block text-sm font-medium text-white">
-                        Email Address
-                      </label>
-                      <input
-                          type="email"
-                          id="email"
-                          className="mt-1 p-2 border rounded w-full"
-                          placeholder="Enter Email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-
-                    <div className="my-[2rem]">
-                      <label htmlFor="password" className="block text-sm font-medium text-white" >
-                        Password
-                      </label>
-                      <input
-                        type="password"
-                        id="password"
-                        className="mt-1 p-2 border rounded w-full"
-                        placeholder="Enter Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </div>
-                    <button 
-                      disabled={isLoading} 
-                      type='submit'  
-                      className="bg-teal-500 text-white px-4 py-2 rounded cursor-pointer my-[1rem]"
-                     >
-                        {isLoading ? 'Signing In ...' : 'Sign In'}
-                    </button>
-                    {isLoading && <Loader />}
-               </form>
-                <div className="mt-4">
-                  <p className="text-white">
-                    New Customer?{" "}
-                    <Link
-                      to={redirect ? `/register?redirect=${redirect}` : "/register"}
-                      className="text-teal-500 hover:underline"
-                    >
-                      Register
-                    </Link>
-                  </p>
-               </div>
+          <form onSubmit={submitHandler} className="space-y-4">
+            <div className="space-y-1.5">
+              <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-text-secondary">
+                Email Address
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="w-full px-4 py-3 bg-surface-light border border-border rounded-xl text-text-primary placeholder-text-secondary text-sm focus:outline-none focus:border-primary transition-colors"
+                placeholder="Enter Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
             </div>
 
-               <div className="relative h-[35rem] w-[50%]  xl:block md:hidden sm:hidden mt-[3rem] rounded-lg overflow-hidden">
-                    <img
-                      src="https://i.pinimg.com/736x/6e/35/54/6e3554bc2c42702a0d85bb5f453923d8.jpg"
-                      alt="Background"
-                      className="w-full h-full object-cover brightness-100 "
-                    />
-                     <div className="absolute inset-0 bg-black/30"></div>
-               </div>
-        </section>
+            <div className="space-y-1.5">
+              <label htmlFor="password" className="block text-xs font-semibold uppercase tracking-wider text-text-secondary">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                className="w-full px-4 py-3 bg-surface-light border border-border rounded-xl text-text-primary placeholder-text-secondary text-sm focus:outline-none focus:border-primary transition-colors"
+                placeholder="Enter Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <button
+              disabled={isLoading}
+              type="submit"
+              className="w-full py-3 bg-primary hover:bg-primary-hover disabled:opacity-50 text-white font-medium text-sm rounded-xl transition-all duration-200 shadow-md shadow-primary/20 cursor-pointer"
+            >
+              {isLoading ? 'Signing In...' : 'Sign In'}
+            </button>
+
+            {isLoading && <div className="mt-2"><Loader /></div>}
+          </form>
+
+          <div className="pt-2 border-t border-border/60">
+            <p className="text-text-secondary text-sm text-center lg:text-left">
+              New Customer?{" "}
+              <Link
+                to={redirect ? `/register?redirect=${redirect}` : "/register"}
+                className="text-primary hover:underline font-semibold"
+              >
+                Register Account
+              </Link>
+            </p>
+          </div>
+        </div>
+
+        {/* Visual Poster Card */}
+        <div className="hidden lg:block relative aspect-square rounded-2xl overflow-hidden border border-border/60 shadow-inner">
+          <img
+            src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=80"
+            alt="Movie Cinema Background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent flex items-end p-6">
+            <div className="space-y-1">
+              <h3 className="text-white font-bold text-lg">Unlimited Entertainment</h3>
+              <p className="text-text-secondary text-xs">Explore thousands of movies and reviews in one hub.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
 
-export default Login
+export default Login

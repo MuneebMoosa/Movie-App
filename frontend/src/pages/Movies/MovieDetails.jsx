@@ -1,105 +1,122 @@
 import { useState } from "react"
-import { useParams , Link} from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { toast } from "react-toastify"
-import { useGetSpecificMovieQuery,
-        useAddMovieReviewMutation
+import {
+  useGetSpecificMovieQuery,
+  useAddMovieReviewMutation
 } from '../../redux/api/movie'
 import MovieTabs from "./MovieTabs"
+import { FiArrowLeft, FiCalendar, FiUsers } from "react-icons/fi"
+
 const MovieDetails = () => {
-    const { id: movieId } = useParams();
-    const [rating, setRating] = useState(0);
-    const [comment, setComment] = useState("");
-    const { data: movie, refetch } = useGetSpecificMovieQuery(movieId);
-    const { userInfo } = useSelector((state) => state.auth);
-    const [createReview, { isLoading: loadingMovieReview }] =
-      useAddMovieReviewMutation();
+  const { id: movieId } = useParams();
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+  const { data: movie, refetch } = useGetSpecificMovieQuery(movieId);
+  const { userInfo } = useSelector((state) => state.auth);
+  const [createReview, { isLoading: loadingMovieReview }] =
+    useAddMovieReviewMutation();
 
-    const submitHandler = async (e) => {
-      e.preventDefault();
+  const submitHandler = async (e) => {
+    e.preventDefault();
 
-      try {
-        await createReview({
-          id: movieId,
-          rating,
-          comment,
-        }).unwrap();
+    try {
+      await createReview({
+        id: movieId,
+        rating,
+        comment,
+      }).unwrap();
 
-        refetch();
+      refetch();
 
-        toast.success("Review created successfully");
-      } catch (error) {
-        toast.error(error.data || error.message);
-      }
-    };
+      toast.success("Review created successfully");
+      setComment("");
+    } catch (error) {
+      toast.error(error.data || error.message);
+    }
+  };
 
-
-    
   return (
-     <>
-    
-      <div className="my-[1rem]">
+    <div className="w-full max-w-6xl mx-auto space-y-6 py-4">
+      {/* Back Link */}
+      <div>
         <Link
           to="/"
-          className="  text-white font-semibold hover:underline ml-[10rem]"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-surface hover:bg-surface-light border border-border text-text-secondary hover:text-text-primary text-sm font-medium transition-colors"
         >
-          Go Back
+          <FiArrowLeft size={16} />
+          <span>Go Back</span>
         </Link>
       </div>
 
-      <div className="flex justify-between m-[6rem]">
-         {/* photo start */}
-        <div className="flex justify-center items-center ">      
+      {/* Main Details Grid */}
+      <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12">
+        {/* Movie Poster */}
+        <div className="w-full max-w-sm mx-auto lg:mx-0 lg:w-80 xl:w-96 shrink-0 rounded-2xl overflow-hidden shadow-2xl border border-border/80 bg-surface">
           <img
             src={movie?.image}
             alt={movie?.name}
-            className="w-[25rem] h-[33rem] rounded"
+            className="w-full aspect-[2/3] object-cover"
           />
         </div>
 
-        {/* description start */}
-        <div className="flex-row">
-            <div className="flex justify-evenly gap-[8rem]">
-                  <section>
-                    <h2 className="text-5xl font-extrabold">{movie?.name}</h2>
-                    <p className="my-4 xl:w-[35rem] lg:w-[35rem] md:w-[30rem] text-[#B0B0B0]">
-                      {movie?.detail}
-                    </p>
-                  </section>
+        {/* Movie Content & Info */}
+        <div className="flex-1 w-full space-y-8">
+          <div className="space-y-4">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-text-primary tracking-tight">
+              {movie?.name}
+            </h1>
 
-                  <div>
-                    <p className="text-2xl font-semibold">
-                      Releasing Date: {movie?.year}
-                    </p>
+            <div className="flex flex-wrap items-center gap-4 text-sm text-text-secondary">
+              {movie?.year && (
+                <div className="flex items-center gap-1.5 bg-surface px-3 py-1.5 rounded-lg border border-border">
+                  <FiCalendar className="text-primary" />
+                  <span>Release Year: <strong className="text-text-primary">{movie?.year}</strong></span>
+                </div>
+              )}
+            </div>
 
-                    <div>
-                      {movie?.cast?.map((c) => (
-                        <ul key={c._id}>
-                          <li className="mt-[1rem]">{c}</li>
-                        </ul>
-                      ))}
-                    </div>
-                  </div>
-            </div>
-            <div>
-              <MovieTabs
-                loadingMovieReview={loadingMovieReview}
-                userInfo={userInfo}
-                submitHandler={submitHandler}
-                rating={rating}
-                setRating={setRating}
-                comment={comment}
-                setComment={setComment}
-                movie={movie}
-              />
-            </div>
-         </div>
-    
+            <p className="text-text-secondary leading-relaxed text-base sm:text-lg">
+              {movie?.detail}
+            </p>
+
+            {movie?.cast && movie.cast.length > 0 && (
+              <div className="space-y-2 pt-2">
+                <div className="flex items-center gap-2 text-sm font-semibold text-text-primary">
+                  <FiUsers className="text-primary" />
+                  <span>Cast & Crew</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {movie.cast.map((c, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 rounded-md bg-surface-light text-text-secondary text-xs sm:text-sm border border-border"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Movie Reviews & Tabs */}
+          <div className="border-t border-border pt-6">
+            <MovieTabs
+              loadingMovieReview={loadingMovieReview}
+              userInfo={userInfo}
+              submitHandler={submitHandler}
+              rating={rating}
+              setRating={setRating}
+              comment={comment}
+              setComment={setComment}
+              movie={movie}
+            />
+          </div>
+        </div>
       </div>
-      
-
-    
-    </>
+    </div>
   )
 }
 

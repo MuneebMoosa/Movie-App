@@ -112,7 +112,7 @@ const CreateMovie = () => {
 
         toast.success("Movie Added To Database");
       }
-    } catch (error) {
+    } catch{
       console.error("Failed to create movie: ", createMovieErrorDetail);
       toast.error(`Failed to create movie: ${createMovieErrorDetail?.message}`);
     }
