@@ -55,7 +55,7 @@ const Main = () => {
           ))}
         </div>
 
-        <div>
+        <div className="ml-auto">
           <RealTimeCard />
         </div>
       </section>

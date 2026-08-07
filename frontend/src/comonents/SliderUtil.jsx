@@ -40,7 +40,7 @@ const SliderUtil = ({ data }) => {
 
   if (!data || data.length === 0) {
     return (
-      <div className="text-text-secondary py-8 px-6 bg-surface/40 border border-border/60 rounded-xl text-left text-sm font-medium">
+      <div className="text-text-secondary py-8 px-6 bg-surface/40 rounded-xl text-left text-sm font-medium">
         No movies available
       </div>
     );
@@ -57,4 +57,4 @@ const SliderUtil = ({ data }) => {
   );
 };
 
-export default SliderUtil
+export default SliderUtil

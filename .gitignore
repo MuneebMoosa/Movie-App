@@ -1,3 +1,15 @@
 node_modules/
 .env
 .env.*
+
+# Docker volumes/data
+postgres_data/
+docker-data/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Logs
+*.log

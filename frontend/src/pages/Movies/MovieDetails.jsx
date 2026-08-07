@@ -10,6 +10,7 @@ import MovieTabs from "./MovieTabs"
 import { FiArrowLeft, FiCalendar, FiUsers } from "react-icons/fi"
 
 const MovieDetails = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const { id: movieId } = useParams();
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
@@ -55,7 +56,7 @@ const MovieDetails = () => {
         {/* Movie Poster */}
         <div className="w-full max-w-sm mx-auto lg:mx-0 lg:w-80 xl:w-96 shrink-0 rounded-2xl overflow-hidden shadow-2xl border border-border/80 bg-surface">
           <img
-            src={movie?.image}
+            src={`${API_URL}${movie?.image?.replace(/\\/g, "/")}`}
             alt={movie?.name}
             className="w-full aspect-[2/3] object-cover"
           />

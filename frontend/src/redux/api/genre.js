@@ -1,6 +1,6 @@
 import {apiSlice} from './apiSlice.js'
 import { GENRE_URL } from '../constants.js'
-import { listGenre } from '../../../../backend/controllers/genreController.js'
+
 
 
 export const genreApiSlice = apiSlice.injectEndpoints({
@@ -32,7 +32,7 @@ export const genreApiSlice = apiSlice.injectEndpoints({
     }),
     readGenre: builder.query({
       query: (id) => ({
-        url: `${GENRE_URL}`/`${id}`,
+        url: `${GENRE_URL}/${id}`,
       })
     }),
   })

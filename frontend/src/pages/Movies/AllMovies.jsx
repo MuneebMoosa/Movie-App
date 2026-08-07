@@ -32,6 +32,10 @@ const AllMovies = () => {
   const uniqueYears = Array.from(new Set(movieYears));
 
   useEffect(() => {
+    if (!data) return;
+
+    const movieYears = data.map((movie) => movie.year);
+    const uniqueYears = [...new Set(movieYears)];
     dispatch(setFilteredMovies(data || []));
     dispatch(setMovieYears(movieYears));
     dispatch(setUniqueYears(uniqueYears));
@@ -47,12 +51,27 @@ const AllMovies = () => {
     dispatch(setFilteredMovies(filteredMovies));
   };
 
+ 
   const handleGenreClick = (genreId) => {
-    const filterByGenre = data?.filter((movie) => movie.genre === genreId);
+    dispatch( setMoviesFilter({ selectedGenre: genreId, }) );
+
+    if (!genreId) {
+      dispatch(setFilteredMovies(data));
+      return;
+    }
+
+    const filterByGenre = data?.filter( (movie) => movie.genre === genreId );
+
     dispatch(setFilteredMovies(filterByGenre));
   };
 
   const handleYearChange = (year) => {
+    dispatch( setMoviesFilter({ selectedYear: year, }))
+
+    if (!year) {
+      dispatch(setFilteredMovies(data));
+      return;
+    }
     const filterByYear = data?.filter((movie) => movie.year === +year);
     dispatch(setFilteredMovies(filterByYear));
   };
@@ -60,17 +79,21 @@ const AllMovies = () => {
   const handleSortChange = (sortOption) => {
     switch (sortOption) {
       case "new":
+        dispatch( setMoviesFilter({ selectedSort: sortOption, }))
         dispatch(setFilteredMovies(newMovies));
         break;
       case "top":
+        dispatch( setMoviesFilter({ selectedSort: sortOption, }))
         dispatch(setFilteredMovies(topMovies));
         break;
       case "random":
+        dispatch( setMoviesFilter({ selectedSort: sortOption, }))
         dispatch(setFilteredMovies(randomMovies));
         break;
 
       default:
-        dispatch(setFilteredMovies([]));
+        dispatch(setMoviesFilter({ selectedSort: "", }));
+        dispatch(setFilteredMovies(data));
         break;
     }
   };
@@ -116,7 +139,7 @@ const AllMovies = () => {
               {/* Genre Filter */}
               <div className="relative">
                 <select
-                  className="w-full px-4 py-2.5 bg-surface-light border border-border rounded-xl text-text-primary text-sm font-medium focus:outline-none focus:border-primary transition-colors cursor-pointer"
+                  className="w-full px-4 py-2.5 bg-surface-light border border-border rounded-xl text-text-primary text-sm font-medium focus:outline-none focus:border-primary transition-colors cursor-pointer "
                   value={moviesFilter.selectedGenre || ""}
                   onChange={(e) => handleGenreClick(e.target.value)}
                 >
@@ -183,4 +206,4 @@ const AllMovies = () => {
   )
 }
 
-export default AllMovies
+export default AllMovies

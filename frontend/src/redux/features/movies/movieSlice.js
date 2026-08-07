@@ -7,7 +7,7 @@ const moviesSlice = createSlice({
       searchTerm: "",
       selectedGenre: "",
       selectedYear: "",
-      selectedSort: [],
+      selectedSort: "",
     },
 
     filteredMovies: [],

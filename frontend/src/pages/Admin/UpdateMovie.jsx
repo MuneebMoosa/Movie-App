@@ -7,6 +7,7 @@ import {
     useDeleteMovieMutation
 } from "../../redux/api/movie"
 import { toast } from "react-toastify"
+import { LuUpload } from "react-icons/lu";
 
 
 
@@ -91,8 +92,8 @@ const UpdateMovie = () => {
           ...movieData,
           image: uploadedImagePath,
         },
-      });
-
+      }).unwrap()
+      toast.success("Movie Updated successfully");
       navigate("/admin/movie-list");
     } catch (error) {
       console.error("Failed to update movie:", error);
@@ -115,107 +116,172 @@ const UpdateMovie = () => {
 
 
 
+  
   return (
-      <div className="container flex justify-center items-center mt-4">
-      <form>
-        <p className="text-green-200 w-[50rem] text-2xl mb-4">Update Movie</p>
+  <div className=" text-white py-10 px-4">
+    <div className="max-w-4xl mx-auto bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-800 overflow-hidden">
+      {/* Header */}
+      <div className="border-b border-zinc-800 px-8 py-6">
+        <h1 className="text-3xl font-bold text-teal-400">
+          Update Movie
+        </h1>
+        <p className="text-gray-400 mt-1">
+          Edit the movie information and save your changes.
+        </p>
+      </div>
 
-        <div className="mb-4">
-          <label className="block">
-            Name:
+      <form className="p-8 space-y-6">
+
+        <div className="grid md:grid-cols-2 gap-6">
+
+          {/* Name */}
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Movie Name
+            </label>
+
             <input
               type="text"
               name="name"
               value={movieData.name}
               onChange={handleChange}
-              className="border px-2 py-1 w-full"
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-teal-500 transition"
             />
-          </label>
-        </div>
-        <div className="mb-4">
-          <label className="block">
-            Year:
+          </div>
+
+          {/* Year */}
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Release Year
+            </label>
+
             <input
               type="number"
               name="year"
               value={movieData.year}
               onChange={handleChange}
-              className="border px-2 py-1 w-full"
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-teal-500 transition"
             />
-          </label>
-        </div>
-        <div className="mb-4">
-          <label className="block">
-            Detail:
-            <textarea
-              name="detail"
-              value={movieData.detail}
-              onChange={handleChange}
-              className="border px-2 py-1 w-full"
-            />
-          </label>
-        </div>
-        <div className="mb-4">
-          <label className="block">
-            Cast (comma-separated):
-            <input
-              type="text"
-              name="cast"
-              value={movieData.cast.join(", ")}
-              onChange={(e) =>
-                setMovieData({ ...movieData, cast: e.target.value.split(", ") })
-              }
-              className="border px-2 py-1 w-full"
-            />
-          </label>
+          </div>
+
         </div>
 
-        <div className="mb-4">
+        {/* Detail */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Movie Description
+          </label>
+
+          <textarea
+            rows={6}
+            name="detail"
+            value={movieData.detail}
+            onChange={handleChange}
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none resize-none focus:border-teal-500 transition"
+          />
+        </div>
+
+        {/* Cast */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Cast
+          </label>
+
+          <input
+            type="text"
+            name="cast"
+            value={movieData.cast.join(", ")}
+            onChange={(e) =>
+              setMovieData({
+                ...movieData,
+                cast: e.target.value.split(", "),
+              })
+            }
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-teal-500 transition"
+          />
+
+          <p className="text-xs text-gray-500 mt-2">
+            Separate actor names with commas.
+          </p>
+        </div>
+
+        {/* Upload */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-3">
+            Movie Poster
+          </label>
+
           <label
             style={
               !selectedImage
                 ? {
-                    border: "1px solid #888",
-                    borderRadius: "5px",
-                    padding: "8px",
+                    border: "2px dashed #3f3f46",
+                    borderRadius: "12px",
+                    padding: "30px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    color: "#a1a1aa",
+                    background: "#09090b",
                   }
-                : {
-                    border: "0",
-                    borderRadius: "0",
-                    padding: "0",
-                  }
+                : {}
             }
           >
-            {!selectedImage && "Upload Image"}
+            {!selectedImage && (
+              <span className="text-sm flex items-center gap-2">
+                 <LuUpload size={20}/> <p>Click here to upload an image</p>
+              </span>
+            )}
+
             <input
               type="file"
               accept="image/*"
               onChange={handleImageChange}
-              style={{ display: !selectedImage ? "none" : "block" }}
+              style={{
+                display: !selectedImage ? "none" : "block",
+              }}
             />
           </label>
+
+          {selectedImage && (
+            <p className="text-sm text-teal-400 mt-3">
+              Selected: {selectedImage.name}
+            </p>
+          )}
         </div>
 
-        <button
-          type="button"
-          onClick={handleUpdateMovie}
-          className="bg-teal-500 text-white px-4 py-2 rounded"
-          disabled={isUpdatingMovie || isUploadingImage}
-        >
-          {isUpdatingMovie || isUploadingImage ? "Updating..." : "Update Movie"}
-        </button>
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 pt-4">
 
-        <button
-          type="button"
-          onClick={handleDeleteMovie}
-          className="bg-red-500 text-white px-4 py-2 rounded ml-2"
-          disabled={isUpdatingMovie || isUploadingImage}
-        >
-          {isUpdatingMovie || isUploadingImage ? "Deleting..." : "Delete Movie"}
-        </button>
+          <button
+            type="button"
+            onClick={handleUpdateMovie}
+            disabled={isUpdatingMovie || isUploadingImage}
+            className="flex-1 rounded-lg bg-teal-500 hover:bg-teal-600 disabled:opacity-60 px-6 py-3 font-semibold transition"
+          >
+            {isUpdatingMovie || isUploadingImage
+              ? "Updating..."
+              : "Update Movie"}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleDeleteMovie}
+            disabled={isUpdatingMovie || isUploadingImage}
+            className="flex-1 rounded-lg bg-red-600 hover:bg-red-700 disabled:opacity-60 px-6 py-3 font-semibold transition"
+          >
+            {isUpdatingMovie || isUploadingImage
+              ? "Deleting..."
+              : "Delete Movie"}
+          </button>
+
+        </div>
+
       </form>
     </div>
-  )
+  </div>
+);
 }
 
 export default UpdateMovie

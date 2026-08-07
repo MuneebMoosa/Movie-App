@@ -22,3 +22,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Docker volumes/data
+postgres_data/
+docker-data/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Logs
+*.log

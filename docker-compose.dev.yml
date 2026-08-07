@@ -1,0 +1,35 @@
+services:
+
+  backend:
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+
+    container_name: movie-backend-dev
+
+    ports:
+      - "3000:3000"
+
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+    environment:
+      - NODE_ENV=development
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: dockerfile.dev
+
+    container_name: movie-frontend-dev
+
+    ports:
+      - "5173:5173"
+
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+    depends_on:
+      - backend

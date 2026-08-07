@@ -2,6 +2,7 @@ import express from "express";
 import CookieParser from "cookie-parser";
 import dotenv  from "dotenv";
 import path from "path";
+import cors from "cors";
 
 // files
 
@@ -18,6 +19,12 @@ connectDB()
 const app = express()
 
 // middlewares 
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

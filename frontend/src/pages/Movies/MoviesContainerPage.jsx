@@ -26,7 +26,6 @@ const MoviesContainerPage = () => {
 
   return (
     <div className="w-full space-y-10">
-      {/* Chosen For You Carousel */}
       <div className="w-full">
         <h2 className="text-xl sm:text-2xl font-bold text-text-primary mb-4 tracking-tight">
           Chosen For You
@@ -43,15 +42,15 @@ const MoviesContainerPage = () => {
       </div>
 
       {/* Genre Filter Card & Choose Movie Section */}
-      <div className="w-full space-y-6 pt-4 border-t border-border/40">
+      <div className="w-full space-y-6 pt-4">
         {/* Horizontal Genre Filter Card */}
-        <div className="w-full bg-surface/90 backdrop-blur-md border border-border p-4 sm:p-5 rounded-2xl shadow-xl space-y-3">
+        <div className="w-full p-4 sm:p-5 rounded-2xl space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-xs sm:text-sm font-semibold text-text-secondary uppercase tracking-wider">
               Filter by Genre
             </h3>
           </div>
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none flex-wrap">
+          <div className="flex items-center  gap-4 overflow-x-auto pb-1 scrollbar-none flex-wrap">
             <button
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                 selectedGenre === null
@@ -92,4 +91,4 @@ const MoviesContainerPage = () => {
 }
 
 export default MoviesContainerPage
-
+

@@ -118,117 +118,178 @@ const CreateMovie = () => {
     }
   };
 
-  return (
-    <div className="container flex justify-center items-center mt-4">
-      <form>
-        <p className="text-green-200 w-[50rem] text-2xl mb-4">Create Movie</p>
-        <div className="mb-4">
-          <label className="block">
-            Name:
+ return (
+  <div className="text-white py-10 px-4">
+    <div className="max-w-4xl mx-auto bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-800 overflow-hidden">
+      {/* Header */}
+      <div className="border-b border-zinc-800 px-8 py-6">
+        <h1 className="text-3xl font-bold text-teal-400">
+          Create Movie
+        </h1>
+        <p className="text-gray-400 mt-1">
+          Add a new movie to your collection.
+        </p>
+      </div>
+
+      <form className="p-8 space-y-6">
+        {/* Name & Year */}
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Movie Name
+            </label>
+
             <input
               type="text"
               name="name"
               value={movieData.name}
               onChange={handleChange}
-              className="border px-2 py-1 w-full"
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-teal-500 transition"
             />
-          </label>
-        </div>
-        <div className="mb-4">
-          <label className="block">
-            Year:
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Release Year
+            </label>
+
             <input
               type="number"
               name="year"
               value={movieData.year}
               onChange={handleChange}
-              className="border px-2 py-1 w-full"
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-teal-500 transition"
             />
-          </label>
+          </div>
         </div>
-        <div className="mb-4">
-          <label className="block">
-            Detail:
-            <textarea
-              name="detail"
-              value={movieData.detail}
-              onChange={handleChange}
-              className="border px-2 py-1 w-full"
-            ></textarea>
+
+        {/* Detail */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Movie Description
           </label>
+
+          <textarea
+            rows={6}
+            name="detail"
+            value={movieData.detail}
+            onChange={handleChange}
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none resize-none focus:border-teal-500 transition"
+          />
         </div>
-        <div className="mb-4">
-          <label className="block">
-            Cast (comma-separated):
-            <input
-              type="text"
-              name="cast"
-              value={movieData.cast.join(", ")}
-              onChange={(e) =>
-                setMovieData({ ...movieData, cast: e.target.value.split(", ") })
-              }
-              className="border px-2 py-1 w-full"
-            />
+
+        {/* Cast */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Cast
           </label>
+
+          <input
+            type="text"
+            name="cast"
+            value={movieData.cast.join(", ")}
+            onChange={(e) =>
+              setMovieData({
+                ...movieData,
+                cast: e.target.value.split(", "),
+              })
+            }
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-teal-500 transition"
+          />
+
+          <p className="text-xs text-gray-500 mt-2">
+            Separate actor names with commas.
+          </p>
         </div>
-        <div className="mb-4">
-          <label className="block">
-            Genre:
+
+        {/* Genre */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Genre
+          </label>
+
+          {isLoadingGenres ? (
+            <p className="text-gray-400">Loading genres...</p>
+          ) : (
             <select
               name="genre"
               value={movieData.genre}
               onChange={handleChange}
-              className="border px-2 py-1 w-full"
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-teal-500 transition"
             >
-              {isLoadingGenres ? (
-                <option>Loading genres...</option>
-              ) : (
-                genres.map((genre) => (
-                  <option key={genre._id} value={genre._id}>
-                    {genre.name}
-                  </option>
-                ))
-              )}
+              <option value="">Select Genre</option>
+
+              {genres.map((genre) => (
+                <option key={genre._id} value={genre._id}>
+                  {genre.name}
+                </option>
+              ))}
             </select>
-          </label>
+          )}
         </div>
 
-        <div className="mb-4">
+        {/* Upload */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-3">
+            Movie Poster
+          </label>
+
           <label
             style={
               !selectedImage
                 ? {
-                    border: "1px solid #888",
-                    borderRadius: "5px",
-                    padding: "8px",
+                    border: "2px dashed #3f3f46",
+                    borderRadius: "12px",
+                    padding: "30px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    color: "#a1a1aa",
+                    background: "#09090b",
                   }
-                : {
-                    border: "0",
-                    borderRadius: "0",
-                    padding: "0",
-                  }
+                : {}
             }
           >
-            {!selectedImage && "Upload Image"}
+            {!selectedImage && (
+              <span className="text-sm">
+                Click here to upload an image
+              </span>
+            )}
+
             <input
               type="file"
               accept="image/*"
               onChange={handleImageChange}
-              style={{ display: !selectedImage ? "none" : "block" }}
+              style={{
+                display: !selectedImage ? "none" : "block",
+              }}
             />
           </label>
+
+          {selectedImage && (
+            <p className="text-sm text-teal-400 mt-3">
+              Selected: {selectedImage.name}
+            </p>
+          )}
         </div>
 
-        <button
-          type="button"
-          onClick={handleCreateMovie}
-          className="bg-teal-500 text-white px-4 py-2 rounded"
-          disabled={isCreatingMovie || isUploadingImage}
-        >
-          {isCreatingMovie || isUploadingImage ? "Creating..." : "Create Movie"}
-        </button>
+        {/* Button */}
+        <div className="pt-4">
+          <button
+            type="button"
+            onClick={handleCreateMovie}
+            disabled={isCreatingMovie || isUploadingImage}
+            className="w-full rounded-lg bg-teal-500 hover:bg-teal-600 disabled:opacity-60 px-6 py-3 font-semibold transition"
+          >
+            {isCreatingMovie || isUploadingImage
+              ? "Creating..."
+              : "Create Movie"}
+          </button>
+        </div>
       </form>
     </div>
-  );
+  </div>
+);
 };
 export default CreateMovie;
