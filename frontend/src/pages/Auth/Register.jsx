@@ -39,9 +39,10 @@ const Register = () => {
         dispatch(setCredentials({ ...res }));
         navigate(redirect);
         toast.success("User successfully registered.");
-      } catch (err) {
-        console.log(err);
-        toast.error(err?.data?.message || err?.error || "Registration failed");
+      } 
+      catch (err) {
+        // console.log(err);
+        toast.error(err?.data?.message);
       }
     }
   };
@@ -155,8 +156,8 @@ const Register = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent flex items-end p-6">
             <div className="space-y-1">
               <h3 className="text-white font-bold text-lg">Join the Movie Community</h3>
-              <p className="text-text-secondary text-xs">Rate your favorite titles and keep track of new releases.</p>
-            </div>
+              <p className="text-white bg-black/70 rounded-l p-1 px-2 text-xs">Rate your favorite titles and keep track of new releases</p>
+            </div> 
           </div>
         </div>
       </div>
@@ -164,4 +165,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Register

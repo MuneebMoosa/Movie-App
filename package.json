@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "fullstack": "concurrently \"npm run backend\" \"npm run frontend\" ",
-    "backend": "nodemon backend/index.js",
+    "backend": "nodemon --legacy-watch backend/index.js",
     "frontend": "cd frontend && npm run dev",
     "start": "node backend/index.js"
   },
@@ -23,9 +23,12 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "mailgen": "^2.0.36",
     "mongoose": "^8.19.2",
     "multer": "^2.0.2",
+    "nodemailer": "^9.0.5",
     "nodemon": "^3.1.10",
-    "react-icons": "^5.7.0"
+    "react-icons": "^5.7.0",
+    "zod": "^4.4.3"
   }
 }

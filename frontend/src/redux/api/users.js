@@ -10,7 +10,19 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-
+    verifyEmail: builder.mutation({
+      query: (token) => ({
+        url: `${USERS_URL}/verify-email/${token}`,
+        method: "POST",
+      }),
+    }),
+    resendVerificationEmail: builder.mutation({
+      query: (email) => ({
+        url: `${USERS_URL}/resend-verification`,
+        method: "POST",
+        body: { email },
+      }),
+    }),
     register: builder.mutation({
       query: (data) => ({
         url: `${USERS_URL}`,
@@ -40,12 +52,35 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+    forgotPassword: builder.mutation({
+      query: (email) => ({
+        url: `${USERS_URL}/forgot-password`,
+        method: "POST",
+        body: { email },
+      }),
+    }),
+
+    resetPassword: builder.mutation({
+      query: ({ token, newPassword, confirmPassword }) => ({
+        url: `${USERS_URL}/reset-password/${token}`,
+        method: "POST",
+        body: {
+          newPassword,
+          confirmPassword,
+        },
+      }),
+    }),
+
   })
 })
 
 export const { 
-      useLoginMutation, 
+      useLoginMutation,
+      useVerifyEmailMutation, 
       useRegisterMutation, 
       useLogoutMutation ,
       useProfileMutation ,
-      useGetUsersQuery} = userApiSlice;
+      useResendVerificationEmailMutation,
+      useGetUsersQuery,
+      useForgotPasswordMutation,
+      useResetPasswordMutation} = userApiSlice;

@@ -16,6 +16,8 @@ import Login from './pages/Auth/Login.jsx'
 import Register from './pages/Auth/Register.jsx'
 
 import Home from './pages/User/Home.jsx';
+import VerifyEmail from './pages/Auth/VerifyEmail.jsx'
+import ResendVerification from './pages/Auth/ResendVerification.jsx'
 import PrivateRoute from './pages/Auth/PrivateRoute.jsx'
 import Profile from './pages/User/Profile.jsx'
 import AdminMoviesList from './pages/Admin/AdminMoviesList.jsx'
@@ -24,15 +26,20 @@ import AllMovies from './pages/Movies/AllMovies.jsx'
 import MovieDetails from './pages/Movies/MovieDetails.jsx'
 import AllComments from './pages/Admin/AllComments.jsx'
 import AdminDashboard from './pages/Admin/Dashboard/AdminDashboard.jsx'
-
+import ForgotPassword from './pages/Auth/ForgotPassword.jsx'
+import ResetPassword from "./pages/Auth/ResetPassword";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<App/>}>
             <Route index={true} path='/' element={<Home/>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path='/register' element={<Register/>}/>
+            <Route path='/verify-email/:token' element={<VerifyEmail />} />
+            <Route path='/resend-verification' element={<ResendVerification />} />
             <Route path='/movies' element={<AllMovies/>}/>
             <Route path='/movies/:id' element={<MovieDetails/>}/>
+            <Route path='/forgot-password' element={<ForgotPassword />} />
+            <Route path='/reset-password/:token' element={<ResetPassword />} />
             
             <Route path='' element={<PrivateRoute />} > 
               <Route path='/profile' element={<Profile/>} />

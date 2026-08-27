@@ -82,6 +82,14 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <div className="flex justify-end">
+                <Link
+                  to="/forgot-password"
+                  className="text-sm text-red-400 hover:underline"
+                >
+                  Forgot Password?
+                </Link>
+              </div>
             </div>
 
             <button
@@ -117,7 +125,6 @@ const Login = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent flex items-end p-6">
             <div className="space-y-1">
-              <h3 className="text-white font-bold text-lg">Unlimited Entertainment</h3>
               <p className="text-text-secondary text-xs">Explore thousands of movies and reviews in one hub.</p>
             </div>
           </div>
@@ -127,4 +134,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login
