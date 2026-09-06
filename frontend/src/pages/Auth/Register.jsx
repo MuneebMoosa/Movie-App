@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Loader from '../../comonents/Loader.jsx'
-import { setCredentials } from '../../redux/features/auth/authSlice'
 import { toast } from 'react-toastify'
 import { useRegisterMutation } from '../../redux/api/users.js'
 
@@ -12,7 +11,6 @@ const Register = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const [register, { isLoading }] = useRegisterMutation();
@@ -35,10 +33,8 @@ const Register = () => {
       toast.error("Passwords do not match");
     } else {
       try {
-        const res = await register({ username, email, password }).unwrap();
-        dispatch(setCredentials({ ...res }));
-        navigate(redirect);
-        toast.success("User successfully registered.");
+       await register({ username, email, password }).unwrap();
+       navigate(`/verify-email-sent?email=${encodeURIComponent(email)}`);
       } 
       catch (err) {
         // console.log(err);

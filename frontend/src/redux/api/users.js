@@ -10,6 +10,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    refresh: builder.mutation({
+      query: () => ({
+        url: `${USERS_URL}/refresh`,
+        method: "POST",
+      }),
+    }),
     verifyEmail: builder.mutation({
       query: (token) => ({
         url: `${USERS_URL}/verify-email/${token}`,
@@ -83,4 +89,5 @@ export const {
       useResendVerificationEmailMutation,
       useGetUsersQuery,
       useForgotPasswordMutation,
-      useResetPasswordMutation} = userApiSlice;
+      useResetPasswordMutation,
+      useRefreshMutation} = userApiSlice;

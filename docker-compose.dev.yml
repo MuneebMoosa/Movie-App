@@ -13,9 +13,11 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+      - ${USERPROFILE}/.aws:/root/.aws:ro
 
     environment:
       - NODE_ENV=development
+      - AWS_PROFILE=movie-app-local
       
       - MAILTRAP_SMTP_HOST=${MAILTRAP_SMTP_HOST}
       - MAILTRAP_SMTP_PORT=${MAILTRAP_SMTP_PORT}

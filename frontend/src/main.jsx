@@ -28,6 +28,7 @@ import AllComments from './pages/Admin/AllComments.jsx'
 import AdminDashboard from './pages/Admin/Dashboard/AdminDashboard.jsx'
 import ForgotPassword from './pages/Auth/ForgotPassword.jsx'
 import ResetPassword from "./pages/Auth/ResetPassword";
+import VerifyEmailSent from './pages/Auth/VerifyEmailSent.jsx'
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<App/>}>
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
             <Route path='/movies/:id' element={<MovieDetails/>}/>
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path='/reset-password/:token' element={<ResetPassword />} />
+            <Route path="/verify-email-sent" element={<VerifyEmailSent />} />
             
             <Route path='' element={<PrivateRoute />} > 
               <Route path='/profile' element={<Profile/>} />
