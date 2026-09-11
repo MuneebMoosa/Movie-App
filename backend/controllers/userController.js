@@ -266,6 +266,10 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   // return new access token
   res.status(200).json({
     accessToken: newAccessToken,
+    _id: user._id,
+    username: user.username,
+    email: user.email,
+    isAdmin: user.isAdmin,
   });
 });
 
@@ -334,8 +338,13 @@ const updateCurrentUserProfile = asyncHandler(async (req, res) => {
   user.username = req.body.username || user.username;
   user.email = req.body.email || user.email;
 
-  if (req.body.password) {
-    user.password = req.body.password;
+  if (req.body.newPassword) {
+    if (req.body.newPassword !== req.body.confirmPassword) {
+      res.status(400);
+      throw new Error("Passwords do not match");
+    }
+
+    user.password = req.body.newPassword;
   }
 
   const updatedUser = await user.save();

@@ -36,7 +36,8 @@ const Profile = () => {
           _id: userInfo._id,
           username,
           email,
-          password,
+          newPassword: password,
+          confirmPassword,
         }).unwrap();
         dispatch(setCredentials({ ...res }));
         toast.success("Profile updated successfully");
@@ -149,4 +150,4 @@ const Profile = () => {
   )
 }
 
-export default Profile
+export default Profile
